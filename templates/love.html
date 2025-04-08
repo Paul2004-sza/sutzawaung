@@ -10,19 +10,16 @@
             overflow: hidden;
             font-family: 'Comic Sans MS', cursive;
             background-image: url('/static/ahmon.png');
-            background-attachment: fixed; /* Keep background fixed while scrolling */
-            background-size: cover; /* Ensure the background covers the whole screen */
-            background-position: center center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent tiling */
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: #fff;
             text-align: center;
-
-            /* Flexbox to center the content */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
-            text-align: center;
+            height: 100vh;
         }
 
         .message {
@@ -76,39 +73,67 @@
             100% { transform: translateY(100vh); opacity: 0; }
         }
 
+        /* Smaller music buttons positioned at the bottom-right corner */
+        .music-btns {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .music-btns button {
+            font-size: 0.7em;
+            padding: 3px 8px;
+            width: 80px;
+        }
     </style>
 </head>
 <body>
-    <div class="message" id="loveMsg">I Love You Ah Mon 💖 Grai Tsawra ai yww 💞</div>
+
+    <!-- Audio Tag, initially hidden -->
+    <audio id="audio" loop>
+        <source src="{{ url_for('static', filename='IYW.mp3') }}" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="message" id="loveMsg">I Love You Ah Mon 💖 Grai Tsawra ai yww Ahba na Tsawmka 💞</div>
     <div class="btns">
         <button onclick="showMessage('You Are My Everything 💝')">More Love 💞</button>
         <button onclick="showMessage('Virtual Hug Sent 🤗💞')">Hug 💝</button>
-        <!-- New button for the custom message -->
         <button onclick="showCustomMessage()">Sho`ngshong we Ah Mon nga💝</button>
     </div>
 
     <div class="hearts" id="hearts"></div>
 
+    <!-- Smaller play/stop buttons -->
+    <div class="music-btns">
+        <button onclick="playMusic()">Play Music 🎶</button>
+        <button onclick="stopMusic()">Stop Music ⛔</button>
+    </div>
+
     <script>
         const message = document.getElementById("loveMsg");
+        const audio = document.getElementById("audio");
         let original = message.innerHTML;
 
         function showMessage(text) {
             message.innerHTML = text;
             setTimeout(() => {
                 message.innerHTML = original;
-            }, 1000); // Display the message for 1 second
+            }, 1000);
         }
 
         function showCustomMessage() {
             const customMessage = "Vnvpwe Ah Mon na` svng yv:ngo` cha`ng Ng`a nvrom mo`nggangchvng vling💝   Na` shvnvng nga Tvp vl-mvyo:nge";
             message.innerHTML = customMessage;
             setTimeout(() => {
-                message.innerHTML = original; // Return to original message after 5 seconds
-            }, 5000); // Display the custom message for 5 seconds
+                message.innerHTML = original;
+            }, 5000);
         }
 
-        // Falling hearts
+        // Falling hearts effect
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
@@ -121,6 +146,18 @@
         }
 
         setInterval(createHeart, 300);
+
+        // Function to play the music when the button is clicked
+        function playMusic() {
+            audio.play();
+        }
+
+        // Function to stop the music when the button is clicked
+        function stopMusic() {
+            audio.pause();
+            audio.currentTime = 0; // Rewind the music to the beginning
+        }
     </script>
+
 </body>
 </html>
