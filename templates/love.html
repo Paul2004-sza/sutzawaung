@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For Ah Mon 💝</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Comic Sans MS', cursive;
+            background-image: url('/static/ahmon.png');
+            background-attachment: fixed; /* Keep background fixed while scrolling */
+            background-size: cover; /* Ensure the background covers the whole screen */
+            background-position: center center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent tiling */
+            color: #fff;
+            text-align: center;
+
+            /* Flexbox to center the content */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            text-align: center;
+        }
+
+        .message {
+            font-size: 3em;
+            text-shadow: 0 0 10px #ff3399;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff66cc; }
+            to { text-shadow: 0 0 20px #ff1a75; }
+        }
+
+        .btns {
+            margin-top: 40px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #ff66cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff3399;
+        }
+
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            animation: fall 5s linear infinite;
+            font-size: 24px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="message" id="loveMsg">I Love You Ah Mon 💖 Grai Tsawra ai yww 💞</div>
+    <div class="btns">
+        <button onclick="showMessage('You Are My Everything 💝')">More Love 💞</button>
+        <button onclick="showMessage('Virtual Hug Sent 🤗💞')">Hug 💝</button>
+        <!-- New button for the custom message -->
+        <button onclick="showCustomMessage()">Sho`ngshong we Ah Mon nga💝</button>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        const message = document.getElementById("loveMsg");
+        let original = message.innerHTML;
+
+        function showMessage(text) {
+            message.innerHTML = text;
+            setTimeout(() => {
+                message.innerHTML = original;
+            }, 1000); // Display the message for 1 second
+        }
+
+        function showCustomMessage() {
+            const customMessage = "Vnvpwe Ah Mon na` svng yv:ngo` cha`ng Ng`a nvrom mo`nggangchvng vling💝   Na` shvnvng nga Tvp vl-mvyo:nge";
+            message.innerHTML = customMessage;
+            setTimeout(() => {
+                message.innerHTML = original; // Return to original message after 5 seconds
+            }, 5000); // Display the custom message for 5 seconds
+        }
+
+        // Falling hearts
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerText = "💗";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            document.getElementById("hearts").appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
